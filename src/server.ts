@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
 import userRoutes from "./routes/User.routes";
@@ -28,6 +28,7 @@ try {
     server.use(logRouter);
     server.use(userRoutes);
     server.use(eventRoutes);
+    server.get("/health", async (req: Request, res: Response) => res.status(200).json({ msg: "Ok" }));
 
     const dbUser = process.env.DB_USER;
     const dbPassword = process.env.DB_PASS;
